@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+header h1 {
+  font-weight: 300;
+  margin-left: 10px;
+}
+
+form input[type='text'] {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 1.125rem;
+  line-height: 2.5rem;
+  text-indent: 1rem;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+form input[type='submit'] {
+  margin-top: 20px;
+  padding: 6px 20px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+}
+
+.filter {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #f4f4f4;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.125rem;
+  line-height: 2.5rem;
+  text-indent: 1rem;
+  font-weight: 500;
+}
+
+main ul {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 10px;
+  row-gap: 20px;
+}
+
+main ul li {
+  width: calc(50% - 5px);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+main ul li i {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.clear {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  padding: 10px 0;
+}
