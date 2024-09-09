@@ -63,8 +63,6 @@ function onSubmit(e) {
 
     e.preventDefault();
     const add = document.getElementById('add');
-    console.log(getIndexOfItem(add.value) , getIndexOfItem(oldVal)); 
-    
     if( getIndexOfItem(add.value) !== -1 && getIndexOfItem(add.value) !== getIndexOfItem(oldVal)) {
             alert('Item Already Exists, Please Enter Something Unique');
             return;
@@ -146,8 +144,10 @@ document.querySelector('.clear').addEventListener('click', onClear);
 
 function onClear(e) {
     e.preventDefault();
-    document.querySelector('main ul').innerHTML = '';
-    removeAllFromLocalStorage();
+    if(confirm('Are You Sure You Want To Remove All Items')) {
+        document.querySelector('main ul').innerHTML = '';
+        removeAllFromLocalStorage();
+    }
 }
 
 //observe changes on ul, if it is empty : hide the filter and clear button
