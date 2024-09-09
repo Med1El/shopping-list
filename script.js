@@ -21,6 +21,11 @@ function addToLocalStorage(item, index){
     localStorage.setItem('list', JSON.stringify(list));
 }
 
+function getIndexOfItem(item){
+    const list = JSON.parse(localStorage.getItem('list'));
+    return list.indexOf(item);
+}
+
 function removeFromLocalStorage(item){
     const list = JSON.parse(localStorage.getItem('list'));
     const index = list.indexOf(item);
@@ -58,6 +63,12 @@ function onSubmit(e) {
 
     e.preventDefault();
     const add = document.getElementById('add');
+    console.log(getIndexOfItem(add.value) , getIndexOfItem(oldVal)); 
+    
+    if( getIndexOfItem(add.value) !== -1 && getIndexOfItem(add.value) !== getIndexOfItem(oldVal)) {
+            alert('Item Already Exists, Please Enter Something Unique');
+            return;
+    }
 
     let index = null;
 
@@ -108,6 +119,8 @@ function onFilter(e) {
 
 // delete li from ul and localStorage after X click
 
+let oldVal;
+
 document.querySelector('main ul').addEventListener('click', onClick);
 
 function onClick(e) {
@@ -123,6 +136,7 @@ function onClick(e) {
         e.target.classList.add('edit-mode');
         document.getElementById('add').value = e.target.innerText;
         document.getElementById('submit').value = '✎ Update Item';
+        oldVal = e.target.innerText;
     }
 }
 
