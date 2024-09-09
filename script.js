@@ -11,16 +11,22 @@ function loadList() {
     return JSON.parse(list);
 }
 
-function addToLocalStorage(item){
+function addToLocalStorage(item, index){
     const list = JSON.parse(localStorage.getItem('list'));
-    list.push(item);
+    if(index !== null){
+        list.splice(index, 0, item);
+    } else {
+        list.push(item);
+    }
     localStorage.setItem('list', JSON.stringify(list));
 }
 
 function removeFromLocalStorage(item){
     const list = JSON.parse(localStorage.getItem('list'));
-    list.splice(item, 1);
+    const index = list.indexOf(item);
+    list.splice(index, 1);
     localStorage.setItem('list', JSON.stringify(list));
+    return index;
 }
 
 function removeAllFromLocalStorage(){
@@ -35,6 +41,7 @@ function removeAllFromLocalStorage(){
 // load lis from localStorage to ul
 
 function loadLis() {
+    document.querySelector('main ul').innerHTML = '';
     const list = loadList();
     list.forEach(element => createLi(element));    
 }
@@ -43,15 +50,32 @@ loadLis(); // load lis on startup
 
 // add item to ul and localStorage after form submit
 
+let editMode = false;
+
 document.querySelector('form').addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
 
     e.preventDefault();
     const add = document.getElementById('add');
+
+    let index = null;
+
+    if(editMode) {
+        const liToRemove = document.querySelector('.edit-mode');
+        index = removeFromLocalStorage(liToRemove.innerText);
+        liToRemove.remove();
+        document.getElementById('submit').value = '+ Add Item';
+    }
+    
     createLi(add.value);
-    addToLocalStorage(add.value);
+    addToLocalStorage(add.value, index);
     add.value = '';
+
+    if(editMode) {
+        loadLis();
+        editMode = false;
+    }
 
 }
 
@@ -84,12 +108,21 @@ function onFilter(e) {
 
 // delete li from ul and localStorage after X click
 
-document.querySelector('main ul').addEventListener('click', onDelete);
+document.querySelector('main ul').addEventListener('click', onClick);
 
-function onDelete(e) {
+function onClick(e) {
     if(e.target.className.includes('fa-solid fa-x')) {
         e.target.parentElement.remove();
         removeFromLocalStorage(e.target.parentElement.innerText);
+    } else if (e.target.tagName === 'LI') {
+
+        editMode = true;
+
+        document.querySelectorAll('main ul li').forEach(e => e.classList.remove('edit-mode'));
+
+        e.target.classList.add('edit-mode');
+        document.getElementById('add').value = e.target.innerText;
+        document.getElementById('submit').value = '✎ Update Item';
     }
 }
 
